@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para Nash ❤️</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+ font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+ background:linear-gradient(135deg,#ffd6eb,#ffc2e2,#ffadd8);
+ overflow:hidden;
+ min-height:100vh;
+}
+.screen{
+ position:absolute;
+ inset:0;
+ display:none;
+ justify-content:center;
+ align-items:center;
+ text-align:center;
+ padding:30px;
+}
+.screen.active{display:flex}
+.card{
+ background:#ffc1dd;
+ border:1px solid rgba(255,255,255,0.6);
+ padding:40px;
+ border-radius:28px;
+ box-shadow:
+ 0 10px 30px rgba(255,20,147,0.15),
+ inset 0 1px 0 rgba(255,255,255,0.6);
+ max-width:700px;
+ width:100%;
+ backdrop-filter:blur(6px);
+ transition:.3s;
+}
+.card:hover{transform:translateY(-3px) scale(1.01)}
+img{
+ max-width:100%;
+ height:auto;
+ border-radius:18px;
+ margin:15px auto 0 auto;
+ box-shadow:0 8px 20px rgba(0,0,0,0.15);
+ display:block;
+}
+h1,h2{color:#c2187a;margin-bottom:20px;font-weight:600}
+p{color:#333;font-size:17px}
+button{
+ background:linear-gradient(180deg,#8dffb8,#4be37c);
+ color:white;
+ border:none;
+ padding:25px 28px;
+ border-radius:30px;
+ font-size:16px;
+ cursor:pointer;
+ transition:.25s;
+ margin:20px auto 0 auto;
+ display:block;
+ box-shadow:0 4px 12px rgba(255,20,147,0.3);
+}
+button:hover{transform:scale(1.08);box-shadow:0 12px 25px rgba(255,20,147,.45)}
+button:active{transform:scale(0.96)}
+.gray{
+ background:linear-gradient(180deg,#e0e0e0,#cfcfcf);
+ color:#555;
+ box-shadow:
+ 0 8px 18px rgba(0,0,0,.15),
+ inset 0 1px 0 rgba(255,255,255,.7);
+}
+.memories{
+ display:grid;
+ grid-template-columns:repeat(2,1fr);
+ gap:15px;
+ margin-top:20px;
+}
+.memory{
+ position:relative;
+ background:#fff;
+ padding:12px;
+ border-radius:6px;
+ box-shadow:
+ 0 10px 25px rgba(0,0,0,0.25),
+ 0 0 0 1px rgba(0,0,0,0.05);
+ border:none;
+ display:flex;
+ justify-content:center;
+ align-items:center;
+ overflow:hidden;
+}
+.memory img{
+ border-radius:2px;
+ width:100%;
+ height:100%;
+ object-fit:cover;
+ border-radius:18px;
+ box-shadow:none;
+ margin:0;
+}
+.heart{
+ position:absolute;
+ font-size:20px;
+ color:rgba(255,0,100,0.35);
+ animation:float linear infinite;
+}
+@keyframes float{
+ from{transform:translateY(100vh);opacity:0}
+ 20%{opacity:1}
+ to{transform:translateY(-10vh);opacity:0}
+}
+#final{
+ background:radial-gradient(circle at bottom,#050510,#000);
+ color:white;
+ overflow:hidden;
+ flex-direction:column;
+}
+.moon{
+ position:absolute;
+ top:60px;
+ right:80px;
+ width:140px;
+ height:140px;
+ border-radius:50%;
+ background:radial-gradient(circle at 30% 30%, #fff, #eee 60%, #ccc);
+ box-shadow:
+ 0 0 60px rgba(255,255,255,.8),
+ 0 0 120px rgba(255,255,255,.25);
+}
+.star{
+ position:absolute;
+ background:white;
+ border-radius:50%;
+ animation:twinkle 3s infinite ease-in-out;
+}
+@keyframes twinkle{
+ 0%,100%{opacity:.3}
+ 50%{opacity:1}
+}
+#typeText{
+ margin-top:180px;
+ position:relative;
+ z-index:10;
+ max-width:600px;
+ line-height:1.6;
+ white-space:pre-wrap;
+ font-size:19px;
+ color:#ffffff;
+ text-shadow:
+ 0 0 10px rgba(255,255,255,.4),
+ 0 0 20px rgba(255,255,255,.2);
+ animation:fadeIn 2s ease;
+}
+@keyframes fadeIn{
+ from{opacity:0;transform:translateY(20px)}
+ to{opacity:1;transform:translateY(0)}
+ }
+ /* corazones laterales */
+.sideHearts{
+ position:fixed;
+ top:0;
+ bottom:0;
+ width:70px;
+ pointer-events:none;
+ z-index:0;
+}
+
+#heartsLeft{left:10px;}
+#heartsRight{right:10px;}
+
+.sideHearts span{
+ position:absolute;
+ color:#ff69b4;
+ opacity:0.5;
+ animation:floatSide linear infinite;
+}
+
+@keyframes floatSide{
+ from{
+  transform:translateY(100vh);
+  opacity:0;
+ }
+ 20%{opacity:0.6}
+ to{
+  transform:translateY(-10vh);
+  opacity:0;
+ }
+}
+
+</style>
+</head>
+<body>
+ <div id="heartsLeft" class="sideHearts"></div>
+<div id="heartsRight" class="sideHearts"></div>
+
+<div class="screen active" id="step1">
+ <div class="card">
+  <h1>¡𝐹𝑒𝓁𝒾𝓏 𝒮𝒶𝓃 𝒱𝒶𝓁𝑒𝓃𝓉𝒾𝓃 𝒩𝒶𝓈𝒽! ❤️</h1>
+  <img src="https://public.youware.com/users-website-assets/prod/dc0b63c4-fad2-4b40-a3f7-ccccc84fa74d/44f8e4f08a2342bea993471a3209bf2b.gif">
+  <button onclick="nextStep()">Siguiente</button>
+ </div>
+</div>
+
+<div class="screen" id="step2">
+ <div class="card">
+  <h2>𝒩𝓊𝑒𝓈𝓉𝓇𝑜𝓈 𝓇𝑒𝒸𝓊𝑒𝓇𝒹𝒾𝓉𝑜𝓈 📸</h2>
+  <div class="memories">
+   <div class="memory"><img src="https://i.postimg.cc/bwpjMc9J/1.webp"></div>
+   <div class="memory"><img src="https://i.postimg.cc/pVz4tcTK/2.webp"></div>
+   <div class="memory"><img src="https://i.postimg.cc/brh6J8JS/3.png"></div>
+   <div class="memory"><img src="https://via.placeholder.com/400x400.png?text=Foto+4"></div>
+  </div>
+  <button onclick="nextStep()">Siguiente</button>
+ </div>
+</div>
+
+<div class="screen" id="step3">
+ <div class="card">
+  <h2>𝒰𝓃𝒶 𝒸𝒶𝓃𝒸𝒾ó𝓃 𝓈𝑜𝓁𝑜 𝓅𝒶𝓇𝒶 𝓋𝑜𝓈 🎵</h2>
+  <p>"Esta canción significa mucho para mí porque me recuerda a cada momento lindo que hemos pasado juntos..."</p>
+  <iframe style="margin-top:15px;border-radius:16px" width="100%" height="200" src="https://www.youtube.com/embed/wIuBcb2T55Q" allowfullscreen></iframe>
+  <button onclick="window.open('https://www.youtube.com/watch?v=wIuBcb2T55Q','_blank')">Abrir canción 💗</button>
+  <button onclick="nextStep()">Siguiente</button>
+ </div>
+</div>
+
+<div class="screen" id="step4">
+ <div class="card">
+  <h2>𝒯𝑒 𝑒𝓈𝒸𝓇𝒾𝒷í 𝓊𝓃𝒶 𝒸𝒶𝓇𝓉𝒶... 💌</h2>
+  <img src="https://public.youware.com/users-website-assets/prod/dc0b63c4-fad2-4b40-a3f7-ccccc84fa74d/407167ae33bc48c38cfa54a5833a8fa7.gif">
+  <button onclick="nextStep()">Siguiente</button>
+ </div>
+</div>
+
+<div class="screen" id="step5">
+ <div class="card">
+  <h2>¿𝒬𝓊𝒾𝑒𝓇𝑒𝓈 𝒶𝒷𝓇𝒾𝓇𝓁𝒶? 👀</h2>
+  <img src="https://public.youware.com/users-website-assets/prod/dc0b63c4-fad2-4b40-a3f7-ccccc84fa74d/282a71b095b04d2188dfe8c664a1ae44.gif">
+  <button onclick="nextStep()">SÍ</button>
+  <button class="gray" id="noBtn">NO</button>
+ </div>
+</div>
+
+<div class="screen" id="step6">
+ <div class="card">
+  <h2>𝒫𝒶𝓇𝒶 𝒩𝒶𝓈𝒽 ❤️</h2>
+  <p style="text-align:left">
+   𝑀𝒾 𝓆𝓊𝑒𝓇𝒾𝒹𝒶 𝒩𝒶𝓈𝒽,<br><br>
+   ,
+𝐸𝓈𝓉𝑒 𝒮𝒶𝓃 𝒱𝒶𝓁𝑒𝓃𝓉í𝓃 𝓆𝓊𝒾𝑒𝓇𝑜 𝓆𝓊𝑒 𝓈𝑒𝓅𝒶𝓈 𝓆𝓊𝑒 𝑜𝒸𝓊𝓅á𝓈 𝓊𝓃 𝓁𝓊𝑔𝒶𝓇 𝓂𝓊𝓎 𝒾𝓂𝓅𝑜𝓇𝓉𝒶𝓃𝓉𝑒 𝑒𝓃 𝓂𝒾 𝒸𝑜𝓇𝒶𝓏ó𝓃.
+𝑀𝑒 𝒾𝓂𝓅𝑜𝓇𝓉𝒶 𝓁𝑜 𝓆𝓊𝑒 𝓈𝑒𝓃𝓉í𝓈, 𝓁𝑜 𝓆𝓊𝑒 𝓅𝑒𝓃𝓈á𝓈 𝓎 𝓁𝑜 𝓆𝓊𝑒 𝓈𝑜𝓈, 𝒾𝓃𝒸𝓁𝓊𝓈𝑜 𝒸𝓊𝒶𝓃𝒹𝑜 𝓃𝑜 𝓁𝑜 𝒹𝑒𝒸í𝓈.
+𝒟𝑒𝓈𝒹𝑒 𝓆𝓊𝑒 𝒶𝓅𝒶𝓇𝑒𝒸𝒾𝓈𝓉𝑒, 𝓂𝓊𝒸𝒽𝒶𝓈 𝒸𝑜𝓈𝒶𝓈 𝒸𝒶𝓂𝒷𝒾𝒶𝓇𝑜𝓃 𝓈𝒾𝓃 𝓆𝓊𝑒 𝓂𝑒 𝒹𝒾𝑒𝓇𝒶 𝒸𝓊𝑒𝓃𝓉𝒶.
+𝐿𝒶𝓈 𝒸𝒶𝓃𝒸𝒾𝑜𝓃𝑒𝓈 𝓈𝓊𝑒𝓃𝒶𝓃 𝒹𝒾𝓈𝓉𝒾𝓃𝓉𝑜, 𝓁𝑜𝓈 𝒹í𝒶𝓈 𝓅𝑒𝓈𝒶𝓃 𝓂𝑒𝓃𝑜𝓈 𝓎 𝓁𝑜𝓈 𝓂𝑜𝓂𝑒𝓃𝓉𝑜𝓈 𝓈𝒾𝓂𝓅𝓁𝑒𝓈
+𝓈𝑒 𝓋𝑜𝓁𝓋𝒾𝑒𝓇𝑜𝓃 𝑒𝓈𝓅𝑒𝒸𝒾𝒶𝓁𝑒𝓈 𝓈𝑜𝓁𝑜 𝓅𝑜𝓇 𝒸𝑜𝓂𝓅𝒶𝓇𝓉𝒾𝓇𝓁𝑜𝓈 𝒸𝑜𝓃 𝓋𝑜𝓈.
+𝒢𝓇𝒶𝒸𝒾𝒶𝓈 𝓅𝑜𝓇 𝑒𝓈𝓉𝒶𝓇, 𝓅𝑜𝓇 𝓆𝓊𝑒𝒹𝒶𝓇𝓉𝑒 𝓎 𝓅𝑜𝓇 𝓉𝓊 𝒻𝑜𝓇𝓂𝒶 𝓉𝒶𝓃 𝓁𝒾𝓃𝒹𝒶 𝒹𝑒 𝓆𝓊𝑒𝓇𝑒𝓇.
+𝒪𝒿𝒶𝓁á 𝓅𝑜𝒹𝒶𝓂𝑜𝓈 𝓈𝑒𝑔𝓊𝒾𝓇 𝑒𝓁𝒾𝑔𝒾é𝓃𝒹𝑜𝓃𝑜𝓈, 𝒸𝓊𝒾𝒹á𝓃𝒹𝑜𝓃𝑜𝓈
+ 𝓎 𝒸𝑜𝓃𝓈𝓉𝓇𝓊𝓎𝑒𝓃𝒹𝑜 𝓇𝑒𝒸𝓊𝑒𝓇𝒹𝑜𝓈 𝒿𝓊𝓃𝓉𝑜𝓈.
+𝒯𝑒 𝓆𝓊𝒾𝑒𝓇𝑜 𝓂á𝓈 𝒹𝑒 𝓁𝑜 𝓆𝓊𝑒 𝒶 𝓋𝑒𝒸𝑒𝓈 𝓈é 𝒹𝑒𝒸𝒾𝓇 𝒸𝑜𝓃 𝓅𝒶𝓁𝒶𝒷𝓇𝒶s. </p>
+  <button onclick="nextStep()">Siguiente</button>
+ </div>
+</div>
+
+<!-- FINAL -->
+<div class="screen" id="final">
+<div class="moon"></div>
+<div id="typeText"></div>
+
+<audio id="finalAudio" preload="auto" loop>
+<source src="nash.mp3" type="audio/mpeg">
+</audio>
+</div>
+ 
+<script>
+let current=1;
+function nextStep(){
+document.getElementById("step"+current)?.classList.remove("active");
+current++;
+if(current<=6){
+document.getElementById("step"+current).classList.add("active");
+}else{
+document.getElementById("final").classList.add("active");
+startFinal();
+}}
+
+function startFinal(){
+
+// 🎵 REPRODUCIR AUDIO CON FADE IN
+const audio=document.getElementById("finalAudio");
+audio.volume=0;
+audio.play();
+
+let vol=0;
+const fade=setInterval(()=>{
+if(vol<0.7){
+vol+=0.02;
+audio.volume=vol;
+}else{
+clearInterval(fade);
+}
+},120);
+
+// ✨ estrellas
+for(let i=0;i<80;i++){
+const star=document.createElement("div");
+star.className="star";
+star.style.width=Math.random()*3+1+"px";
+star.style.height=star.style.width;
+star.style.left=Math.random()*100+"vw";
+star.style.top=Math.random()*100+"vh";
+document.getElementById("final").appendChild(star);
+}
+
+// ✍️ texto animado
+const text=`Y si tuviera la posibilidad de volver a enamorarme de ti
+como aquella primera vez lo haría sin pensarlo dos veces
+lo haría sin pensarlo dos veces
+lo haria certeza de que tu eras mi destino
+porque hay cosas en las vida que no se explican solo se sienten
+certeza de que tú eras mi destino
+porque hay cosas en la vida que no se explican solo se sienten
+y lo nuestro fue eso
+un impulso del alma
+una casualidad vestida de eternidad
+cada recuerdo tuyo es como una chispa
+que me recuerda quién era antes de perderme`;
+
+let i=0;
+function type(){
+if(i<text.length){
+document.getElementById("typeText").innerHTML+=text.charAt(i);
+i++;
+setTimeout(type,40);
+}}
+setTimeout(type,2000);
+}
+ function crearCorazones(id,cantidad){
+
+ const container=document.getElementById(id);
+
+ for(let i=0;i<cantidad;i++){
+
+  const heart=document.createElement("span");
+
+  heart.innerHTML="💗";
+
+  heart.style.left=Math.random()*50+"px";
+
+  heart.style.fontSize=(Math.random()*12+16)+"px";
+
+  heart.style.animationDuration=(Math.random()*6+6)+"s";
+
+  heart.style.animationDelay=Math.random()*5+"s";
+
+  container.appendChild(heart);
+ }
+
+}
+
+crearCorazones("heartsLeft",12);
+crearCorazones("heartsRight",12);
+
+</script>
+ 
+</body>
+
+
+</html>
